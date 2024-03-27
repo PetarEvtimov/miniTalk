@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   conversion.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pevtimov <pevtimov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/18 17:17:00 by pevtimov          #+#    #+#             */
-/*   Updated: 2024/03/27 19:34:31 by pevtimov         ###   ########.fr       */
+/*   Created: 2024/02/11 15:29:01 by pevtimov          #+#    #+#             */
+/*   Updated: 2024/03/27 19:36:16 by pevtimov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+char	*ft_convert_num_to_base(unsigned long long num, char *base)
 {
-	char		*ptr_dest;
-	char		*ptr_dest_start;
-	const char	*ptr_src;
+	unsigned int		size_base;
+	unsigned int		size_str;
+	char				*num_str;
 
-	if ((dest == NULL) & (src == NULL))
+	size_base = ft_strlen_pf(base);
+	size_str = ft_get_lenght(num, size_base);
+	num_str = ft_calloc_printf((size_str + 1), sizeof(char));
+	if (num_str == NULL)
 		return (NULL);
-	ptr_dest = (char *) dest;
-	ptr_dest_start = ptr_dest;
-	ptr_src = (char *) src;
-	while (n > 0)
+	while (size_str)
 	{
-		*ptr_dest = *ptr_src;
-		ptr_dest++;
-		ptr_src++;
-		n--;
+		size_str--;
+		num_str[size_str] = base[num % size_base];
+		num /= size_base;
 	}
-	return (ptr_dest_start);
+	return (num_str);
 }

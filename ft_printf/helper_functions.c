@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   helper_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pevtimov <pevtimov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/06 20:46:53 by pevtimov          #+#    #+#             */
-/*   Updated: 2024/03/06 20:48:40 by pevtimov         ###   ########.fr       */
+/*   Created: 2024/02/11 15:30:06 by pevtimov          #+#    #+#             */
+/*   Updated: 2024/03/27 19:35:26 by pevtimov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "ft_printf.h"
 
-size_t	ft_strlen(const char *s)
+unsigned int	ft_strlen_pf(const char *s)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (s[i])
@@ -24,42 +24,20 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
+unsigned int	ft_get_lenght(unsigned long long num, unsigned int size_base)
 {
-	while (*s != '\0')
+	unsigned int	size;
+
+	size = 1;
+	while (num >= size_base)
 	{
-		if (*s == (char)c)
-		{
-			return ((char *)s);
-		}
-		s++;
+		size++;
+		num /= size_base;
 	}
-	if ((char)c == 0)
-		return ((char *)s);
-	return (NULL);
+	return (size);
 }
 
-char	*ft_strdup_mod(const char *s)
-{
-	size_t	len;
-	char	*str;
-	int		i;
-
-	len = ft_strlen(s) + 1;
-	str = (char *)malloc(len * sizeof(char));
-	if (str == NULL)
-		return (NULL);
-	i = 0;
-	while (s[i])
-	{
-		str[i] = s[i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
-}
-
-void	ft_bzero(void *s, size_t n)
+void	ft_bzero_printf(void *s, int n)
 {
 	char	*ch_s;
 
@@ -72,7 +50,7 @@ void	ft_bzero(void *s, size_t n)
 	}
 }
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	*ft_calloc_printf(int nmemb, size_t size)
 {
 	void	*ptr;
 	size_t	num_bytes;
@@ -81,6 +59,6 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	ptr = malloc(num_bytes);
 	if (ptr == NULL)
 		return (NULL);
-	ft_bzero(ptr, num_bytes);
+	ft_bzero_printf(ptr, num_bytes);
 	return (ptr);
 }
